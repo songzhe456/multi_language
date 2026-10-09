@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class JavaPart {
     public static void main(){
         System.out.println("java部分已启动");
+        File temp = null;
         try (InputStream inputStream = JavaPart.class.getClassLoader().getResourceAsStream("py_part.py")){
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             ArrayList<String> content = new ArrayList<>();
@@ -26,7 +27,7 @@ public class JavaPart {
                 fullCmd.append("\n");
             }
             System.out.println("完整的：\n" + fullCmd);
-            File temp = new File("./temp.py");
+            temp = new File("./temp.py");
             FileWriter fw = new FileWriter(temp.getPath());
             try(BufferedWriter writer = new BufferedWriter(fw)) {
                 writer.write(String.valueOf(fullCmd));
@@ -35,6 +36,10 @@ public class JavaPart {
             }
         } catch (IOException | InterruptedException e) {
             System.err.println("python部分启动失败：" + e);
+        }
+        //删除运行残留
+        if (temp != null) {
+            temp.deleteOnExit();
         }
     }
 
