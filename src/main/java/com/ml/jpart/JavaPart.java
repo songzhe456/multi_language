@@ -23,9 +23,7 @@ public class JavaPart {
             StringBuilder fullCmd = new StringBuilder();
             for(String c : content) {
                 fullCmd.append(c);
-                if(c.endsWith(":") || c.endsWith(")") || c.startsWith("import")) {
-                    fullCmd.append("\n");
-                }
+                fullCmd.append("\n");
             }
             System.out.println("完整的：\n" + fullCmd);
             File temp = new File("./temp.py");
